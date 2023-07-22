@@ -31,8 +31,6 @@
 
 #include "stmlib/stmlib.h"
 
-#ifdef TEST
-
 // Mock flash saving functions for debugging purposes.
 #define PAGE_SIZE 0x800
 
@@ -54,13 +52,6 @@ inline void FLASH_ProgramWord(uint32_t address, uint32_t word) {
   }
 }
 
-#else
-
-#include <stm32f37x_conf.h>
-#include "stmlib/system/flash_programming.h"
-
-#endif  // TEST
-
 namespace plaits {
 
 class UserData {
@@ -73,20 +64,9 @@ class UserData {
   UserData() { }
   ~UserData() { }
 
-#ifdef TEST  
   inline const uint8_t* ptr(int slot) const {
     return NULL;
   }
-#else
-  inline const uint8_t* ptr(int slot) const {
-    const uint8_t* data = (const uint8_t*)(ADDRESS);
-    if (data[SIZE - 2] == 'U' && data[SIZE - 1] == (' ' + slot)) {
-      return data;
-    } else {
-      return NULL;
-    }
-  }
-#endif  // TEST
   
   inline bool Save(uint8_t* rx_buffer, int slot) {
     if (slot < rx_buffer[SIZE - 2] || slot > rx_buffer[SIZE - 1]) {
