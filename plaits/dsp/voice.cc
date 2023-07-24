@@ -93,11 +93,7 @@ void Voice::Render(
     Frame* frames,
     size_t size) {
   // Trigger, LPG, internal envelope.
-      
-  // Delay trigger by 1ms to deal with sequencers or MIDI interfaces whose
-  // CV out lags behind the GATE out.
-  trigger_delay_.Write(modulations.trigger);
-  float trigger_value = trigger_delay_.Read(kTriggerDelay);
+  float trigger_value = modulations.trigger;
   
   bool previous_trigger_state = trigger_state_;
   if (!previous_trigger_state) {
