@@ -37,8 +37,8 @@ extern float kSampleRate;
 extern float kCorrectedSampleRate;
 extern float a0;
 
-const size_t kMaxBlockSize = 64;
-const size_t kBlockSize = 12;
+const size_t kMaxBlockSize = 24;
+const size_t kBlockSize = 16;
 
 }  // namespace plaits
 
