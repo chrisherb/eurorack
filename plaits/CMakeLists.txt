@@ -1,6 +1,6 @@
-set(MI_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(STMLIB_DIR ${MI_DIR}/../stmlib)
-set(PLAITS_DIR ${MI_DIR})
+set(MI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../)
+set(STMLIB_DIR ${MI_DIR}/stmlib)
+set(PLAITS_DIR ${MI_DIR}/plaits)
 
 set(STMLIB_SRC
 	${STMLIB_DIR}/stmlib.h
@@ -127,11 +127,13 @@ set(PLAITS_SRC
 	${PLAITS_DIR}/dsp/chords/chord_bank.h
 )
 
-add_library(mi-plaits MODULE
+add_library(mi-plaits OBJECT
 	${STMLIB_SRC}
 	${PLAITS_SRC}
 )
 
+set_target_properties(mi-plaits PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 target_include_directories(mi-plaits PUBLIC
-    ${MI_DIR}/../
+	${MI_DIR}
 )
