@@ -86,22 +86,17 @@ class Voice {
     gate_ = false;
     note_ = 48.0f;
     normalized_velocity_ = 10.0f;
-    
-    dirty_ = true;
   }
   
   inline void SetPatch(const Patch* patch) {
     patch_ = patch;
-    dirty_ = true;
+    Setup();
   }
   
   // Pre-compute everything that can be pre-computed once a patch is loaded:
   // - envelope constants
   // - frequency ratios
   inline bool Setup() {
-    if (!dirty_) {
-      return false;
-    }
     
     pitch_envelope_.Set(
         patch_->pitch_envelope.rate,
@@ -122,7 +117,6 @@ class Voice {
       float sign = op.mode == 0 ? 1.0f : -1.0f;
       ratios_[i] = sign * FrequencyRatio(op);
     }
-    dirty_ = false;
     return true;
   }
   
@@ -152,14 +146,6 @@ class Voice {
       const Parameters& parameters,
       float* buffers[4],
       size_t size) {
-    if (Setup()) {
-      // This prevents a CPU overrun, since there is not enough CPU to perform
-      // both a patch setup and a full render in the time alloted for
-      // a render. As a drawback, this causes a 0.5ms blank before a new
-      // patch starts playing. But this is a clean blank, as opposed to a
-      // glitchy overrun.
-      return;
-    }
     
     const float envelope_rate = float(size);
     const float ad_scale = Pow2Fast<1>(
@@ -275,8 +261,6 @@ class Voice {
   float feedback_state_[2];
   
   const Patch* patch_;
-  
-  bool dirty_;
   
   DISALLOW_COPY_AND_ASSIGN(Voice);
 };
