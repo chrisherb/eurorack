@@ -145,6 +145,7 @@ struct Modulations {
   float morph;
   float trigger;
   float level;
+  float sustain_level;
 
   bool frequency_patched;
   bool timbre_patched;

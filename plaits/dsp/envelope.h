@@ -54,7 +54,8 @@ class LPGEnvelope {
       float attack,
       float short_decay,
       float decay_tail,
-      float hf) {
+      float hf,
+      float sustain_level = 0.0f) {
     if (ramp_up_) {
       vactrol_state_ += attack;
       if (vactrol_state_ >= 1.0f) {
@@ -62,7 +63,7 @@ class LPGEnvelope {
         ramp_up_ = false;
       }
     }
-    ProcessLP(ramp_up_ ? vactrol_state_ : 0.0f, short_decay, decay_tail, hf);
+    ProcessLP(ramp_up_ ? vactrol_state_ : sustain_level, short_decay, decay_tail, hf);
   }
   
   inline void ProcessLP(
