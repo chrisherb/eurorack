@@ -180,7 +180,7 @@ void Voice::Render(
       // Disable internal envelope on TIMBRE, and enable the envelope generator
       // built into the chiptune engine.
       internal_envelope_amplitude_timbre = 0.0f;
-      chiptune_engine_.set_envelope_shape(patch.timbre_modulation_amount);
+      chiptune_engine_.set_envelope_shape(1.f - patch.decay);
     } else {
       chiptune_engine_.set_envelope_shape(ChiptuneEngine::NO_ENVELOPE);
     }
