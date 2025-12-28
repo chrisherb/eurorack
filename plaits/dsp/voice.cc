@@ -236,7 +236,8 @@ void Voice::Render(
       lpg_envelope_.ProcessLP(compressed_level, short_decay, decay_tail, hf);
     } else {
       const float attack = NoteToFrequency(p.note) * float(kBlockSize) * 2.0f;
-      lpg_envelope_.ProcessPing(attack, short_decay, decay_tail, hf, modulations.sustain_level);
+      lpg_envelope_.ProcessPing(attack, short_decay, decay_tail, hf,
+                                modulations.sustain_level, modulations.attack_coeff);
     }
   } else {
     lpg_envelope_.Init();

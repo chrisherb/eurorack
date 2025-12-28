@@ -55,9 +55,10 @@ class LPGEnvelope {
       float short_decay,
       float decay_tail,
       float hf,
-      float sustain_level = 0.0f) {
+      float sustain_level = 0.0f,
+      float attack_coefficient = 1.f) {
     if (ramp_up_) {
-      vactrol_state_ += attack;
+      vactrol_state_ += attack * attack_coefficient;
       if (vactrol_state_ >= 1.0f) {
         vactrol_state_ = 1.0f;
         ramp_up_ = false;

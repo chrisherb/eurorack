@@ -146,6 +146,7 @@ struct Modulations {
   float trigger;
   float level;
   float sustain_level;
+  float attack_coeff;
 
   bool frequency_patched;
   bool timbre_patched;
