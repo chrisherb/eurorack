@@ -58,8 +58,8 @@ class FMEngine : public Engine {
   float previous_feedback_;
   float previous_sample_;
   
-  float sub_fir_;
-  float carrier_fir_;
+  float sub_fir_ = 0.f;
+  float carrier_fir_ = 0.f;
   
   DISALLOW_COPY_AND_ASSIGN(FMEngine);
 };
